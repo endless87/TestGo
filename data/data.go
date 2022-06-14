@@ -1,4 +1,4 @@
-package data
+package Data
 
 import (
 	"fmt"
@@ -22,4 +22,11 @@ func LenAndUpperNakedReturn(name string) (length int, uppercase string) {
 	length = len(name)
 	uppercase = strings.ToUpper(name)
 	return
+}
+
+func SuperAdd(numbers ...int) int {
+	for index, number := range numbers {
+		fmt.Println(index, number)
+	}
+	return 1
 }
