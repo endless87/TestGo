@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  test:
+    # 애플리케이션 설정
+    build: .
+    ports:
+      - "9999:9999"
+#  db:
+    # 데이터베이스 설정
+#networks:
+  # 네트워크 설정
+#volumes:
+  # 볼륨 설정
+
+
+
+
+# docker-compose up -d
+# docker-compose down
