@@ -9,23 +9,18 @@ ENV GO111MODULE=on \
     GOARCH=amd64
 
 WORKDIR /build
-
 COPY go.mod main.go ./
-
 RUN go mod download
-
 RUN go build -o main .
-
 WORKDIR /dist
-
 RUN cp /build/main .
 
 FROM scratch
-
 COPY --from=builder /dist/main .
-
+EXPOSE 9999
 ENTRYPOINT ["/main"]
 
+# multi stage
 
 ## build
 # docker build . -t go-docker
