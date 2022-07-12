@@ -1,6 +1,6 @@
 version: "3.5"
 services:
-  test:
+  app:
     # 애플리케이션 설정
     build: .
     ports:

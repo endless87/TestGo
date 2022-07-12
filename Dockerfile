@@ -1,5 +1,8 @@
 FROM golang:alpine AS builder
 
+LABEL go.package.version="0.1" \
+    go.package.release.date="2022-07-12"
+
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \

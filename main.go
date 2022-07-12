@@ -6,46 +6,49 @@ import (
 	"net/http"
 )
 
-var users = map[string]*User{}
+/* var users = map[string]*User{} */
 
-type User struct {
-	Nickname string `json:"nickname"`
-	Email    string `json:"email"`
+var data = map[string]*Info{}
+
+/* type User struct {
+	User string `json:"user"`
+} */
+
+type Info struct {
+	Name  string `json:"name"`
+	Phone string `json:"phone"`
+	Email string `json:"email"`
 }
 
-var datas = map[string]*Data{}
+/* var datas = map[string]*Data{}
 
 type Data struct {
-	Data1 string `json:"data1"`
-	Data2 string `json:"data2"`
-}
+	Data string `json:"data"`
+} */
 
 func main() {
 
-	fmt.Println("test api")
+	fmt.Println("test api start")
 
-	http.HandleFunc("/users", func(wr http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/user", func(wr http.ResponseWriter, r *http.Request) {
 		fmt.Println(wr)
 		fmt.Println(r)
 		switch r.Method {
 		case http.MethodGet: // 조회
 			fmt.Println("---Get")
-			json.NewEncoder(wr).Encode(users) // 인코딩
+			json.NewEncoder(wr).Encode(data) // 인코딩
 		case http.MethodPost: // 등록
 			fmt.Println("---Post")
-			var user User
+			var info Info
+			json.NewDecoder(r.Body).Decode(&info) // 디코딩
 
-			fmt.Println(user)
+			data["user"] = &info
 
-			json.NewDecoder(r.Body).Decode(&user) // 디코딩
-
-			users[user.Email] = &user
-
-			json.NewEncoder(wr).Encode(users) // 인코딩
+			json.NewEncoder(wr).Encode(data) // 인코딩
 		}
 	})
 
-	http.HandleFunc("/data", func(wr http.ResponseWriter, r *http.Request) {
+	/* 	http.HandleFunc("/data", func(wr http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
 			json.NewEncoder(wr).Encode(datas)
@@ -63,7 +66,7 @@ func main() {
 
 			json.NewEncoder(wr).Encode(datas)
 		}
-	})
+	}) */
 
 	http.ListenAndServe(":9999", nil)
 
